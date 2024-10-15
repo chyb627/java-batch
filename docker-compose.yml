@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql_local
+    image: mysql:8.0.30
+    # 컨테이너는 삭제될때 데이터가 함께 사라지게 되는데 생명주기와 상관없이 데이터를 유지할 수 있도록 하는것이 volumes
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=java_local
+      - MYSQL_USER=java_local_user
+      - MYSQL_PASSWORD=javalocal123
+      - MYSQL_ROOT_PASSWORD=javalocal123
+      - TZ=Asia/Seoul
